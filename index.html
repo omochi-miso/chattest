@@ -18,10 +18,13 @@
   <p>表示中のアドレス：<code id="host"></code></p>
   <script>document.getElementById("host").textContent = location.hostname + location.pathname;</script>
 
-  <!-- ▼▼▼ ここからチャット ▼▼▼
-       miibo：公開設定画面でコピーした埋め込みタグ
-       Chatbase：Channels → Chat bubble → Deploy でコピーしたスクリプト
-       どちらかを、このコメントのすぐ下にそのまま貼り付けてください。 -->
+  <!-- ▼▼▼ この物件の名前（ページごとにここだけ書き換える） ▼▼▼ -->
+  <script>
+    window.MIIBO_PROPERTY = "サンメゾン京田辺駅前ユニハイム 1107号室";
+  </script>
+  <!-- ▲▲▲ ここまで ▲▲▲ -->
+
+  <!-- ▼▼▼ ここからチャット（miiboの埋め込みコード。物件名をチャットに渡すよう一部変更済み） ▼▼▼ -->
   <script>
         // CSSとアイコンのリンクを追加する関数
         function addStylesheet(href) {
@@ -107,6 +110,10 @@
             if (chatbox.style.display === 'none' || utterance) {
                 chatbox.style.display = 'block';
                 var src = 'https://miibo.jp/chat/12ad18e1-4fc4-4f12-b288-b1aa960eb5631792978374008180445?name=%E7%89%A9%E4%BB%B6%E6%A1%88%E5%86%85AI%EF%BC%88%E3%83%86%E3%82%B9%E3%83%88%EF%BC%89';
+                // 【追加】ページに書いた物件名を「property」というステートとしてチャットに渡す
+                if (window.MIIBO_PROPERTY) {
+                    src += '&property=' + encodeURIComponent(window.MIIBO_PROPERTY);
+                }
                 // 可変引数からクエリパラメータを生成
                 states.forEach(state => {
                     if (state.key && state.value) {
